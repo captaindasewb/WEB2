@@ -139,6 +139,9 @@ $result = $stmt->get_result();
 <script>
 $(document).ready(function() {
 
+    // Bỏ qua sự kiện click đã cung cấp bởi js/custom.js để tránh double count (tăng/giảm 2)
+    $('.increment, .decrement').off('click');
+
     // Tăng số lượng
     $('.increment').on('click', function() {
         let input = $(this).siblings('.qty-input');

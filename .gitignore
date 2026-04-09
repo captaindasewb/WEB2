@@ -1,0 +1,43 @@
+# ========================
+# Agent & IDE configs
+# ========================
+.agent/
+.gemini/
+GEMINI.md
+
+# ========================
+# Temp & debug files
+# ========================
+tmp_*.php
+check_schema.php
+*.log
+*.tmp
+
+# ========================
+# Environment & secrets
+# ========================
+.env
+.env.local
+.env.production
+config/db_credentials.php
+
+# ========================
+# OS generated files
+# ========================
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# ========================
+# IDE files
+# ========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ========================
+# Dependencies
+# ========================
+node_modules/
+vendor/

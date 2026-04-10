@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once '../includes/conn.php';
 
 // Xóa toàn bộ dữ liệu session
 $_SESSION = [];

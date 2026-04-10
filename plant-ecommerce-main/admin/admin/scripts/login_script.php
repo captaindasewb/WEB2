@@ -1,5 +1,4 @@
-<?php
-session_start();
+﻿<?php
 
 // Require kết nối DB (lên 1 cấp từ thư mục scripts/)
 require_once '../includes/conn.php';

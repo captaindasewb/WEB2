@@ -1,8 +1,7 @@
-<?php
+﻿<?php
 require_once "includes/conn.php";
 require_once "includes/header.php";
 
-session_start();
 
 // Nếu đã đăng nhập admin thì chuyển hướng về trang chính
 if (isset($_SESSION['admin_email'])) {

@@ -18,6 +18,11 @@ $last = mysqli_real_escape_string($con, $last);
 $mobile = $_POST['mobile'];
 $mobile = mysqli_real_escape_string($con, $mobile);
 
+$street   = mysqli_real_escape_string($con, trim($_POST['street'] ?? ''));
+$ward     = mysqli_real_escape_string($con, trim($_POST['ward'] ?? ''));
+$district = mysqli_real_escape_string($con, trim($_POST['district'] ?? ''));
+$address  = $street . ', ' . $ward . ', ' . $district . ', TP. Hồ Chí Minh';
+
 if (!preg_match('/^[0-9]{10}$/', $mobile)) {
     $m = "Số điện thoại phải đúng 10 chữ số";
     header('location: ../register.php?error=' . urlencode($m));
@@ -28,13 +33,11 @@ $query = "SELECT * from users where email='$email'";
 $result = mysqli_query($con, $query);
 $num = mysqli_num_rows($result);
 if ($num != 0) {
-
-    $m = "Email Already Exists";
-    header('location: index.php?error=' . $m);
-
+    $m = "Email này đã được đăng ký. Vui lòng dùng email khác hoặc đăng nhập!";
+    header('location: ../register.php?error=' . urlencode($m));
+    exit();
 } else {
-    $quer = "INSERT INTO users(email_id,first_name,last_name,password) values('$email','$first','$last','$pass')";
-    $quer = "INSERT INTO `users`(`first_name`, `last_name`, `mobile`, `email`, `password`) VALUES ('$first','$last','$mobile','$email','$pass')";
+    $quer = "INSERT INTO `users`(`first_name`, `last_name`, `mobile`, `email`, `password`, `address`) VALUES ('$first','$last','$mobile','$email','$pass','$address')";
     mysqli_query($con, $quer);
 
     echo "New record has id: " . mysqli_insert_id($con);

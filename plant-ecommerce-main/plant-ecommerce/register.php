@@ -43,6 +43,45 @@
                             <h3>
                                 Chào mừng đến cửa hàng của chúng tôi! <br /> Hãy đăng ký ngay
                             </h3>
+                            <?php if (!empty($_GET['error'])): ?>
+                                <div class="alert alert-danger d-flex align-items-center mb-3" style="border-radius:8px; font-size:14px;">
+                                    <span style="margin-right:8px;">⚠️</span>
+                                    <?php echo htmlspecialchars($_GET['error']); ?>
+                                </div>
+                            <?php endif; ?>
+                            <style>
+                                .addr-select-wrap {
+                                    position: relative;
+                                    width: 100%;
+                                }
+                                .addr-select-wrap select {
+                                    appearance: none;
+                                    -webkit-appearance: none;
+                                    width: 100%;
+                                    background-color: transparent;
+                                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23bbbbbb'/%3E%3C/svg%3E");
+                                    background-repeat: no-repeat;
+                                    background-position: right 4px center;
+                                    background-size: 10px 6px;
+                                    border: none;
+                                    border-bottom: 1px solid #e8e8e8;
+                                    border-radius: 0;
+                                    padding: 13px 28px 13px 0;
+                                    font-size: 14px;
+                                    color: #999;
+                                    outline: none;
+                                    cursor: pointer;
+                                    transition: border-color 0.3s, color 0.3s;
+                                }
+                                .addr-select-wrap select:focus {
+                                    border-bottom-color: #fe3a6e;
+                                    color: #333;
+                                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23fe3a6e'/%3E%3C/svg%3E");
+                                }
+                                .addr-select-wrap select option:not([value=""]) {
+                                    color: #333;
+                                }
+                            </style>
                             <form class="row contact_form" action="scripts/signup_script.php" method="post">
                                 <div class="col-md-6 form-group p_star">
                                     <input type="text" class="form-control" required id="fname" name="fname" value="" placeholder="Họ" />
@@ -59,6 +98,23 @@
                                 <div class="col-md-12 form-group p_star">
                                     <input type="password" class="form-control" required id="password" name="password" value="" placeholder="Mật khẩu" />
                                 </div>
+                                <div class="col-md-12 form-group" style="margin-bottom:8px;">
+                                    <div class="addr-select-wrap">
+                                        <select name="district" id="district">
+                                            <option value="">Quận / Huyện</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-group" style="margin-bottom:8px;">
+                                    <div class="addr-select-wrap">
+                                        <select name="ward" id="ward">
+                                            <option value="">Phường / Xã</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-group p_star">
+                                    <input type="text" class="form-control" required id="street" name="street" value="" placeholder="Số nhà, Tên đường (VD: 123 Đường ABC)" />
+                                </div>
                                 <div class="col-md-12 form-group">
                                     <button type="submit" value="submit" class="btn_3">
 											Đăng ký
@@ -72,6 +128,8 @@
             </div>
         </div>
     </section>
+
+
 
     <?php require "./includes/footer.php" ?>
 
@@ -94,6 +152,44 @@
     <script src="js/stellar.js"></script>
     <script src="js/price_rangs.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/hcm_data.js"></script>
+    <script>
+    $(document).ready(function () {
+        // Populate district dropdown
+        hcmData.forEach(function (district) {
+            $('#district').append('<option value="' + district.name + '">' + district.name + '</option>');
+        });
+        // Refresh nice-select UI after adding options
+        $('#district').niceSelect('update');
+
+        // When district changes (listen via native select which nice-select syncs)
+        $('#district').on('change', function () {
+            var selectedDistrict = $(this).val();
+            $('#ward').html('<option value="">Phường / Xã</option>');
+            var districtObj = hcmData.find(function(d) { return d.name === selectedDistrict; });
+            if (districtObj) {
+                districtObj.wards.forEach(function (ward) {
+                    $('#ward').append('<option value="' + ward + '">' + ward + '</option>');
+                });
+            }
+            $('#ward').niceSelect('update');
+        });
+
+        // JS validation before submit (replace HTML required on select)
+        $('form.contact_form').on('submit', function (e) {
+            if (!$('#district').val()) {
+                alert('Vui lòng chọn Quận/Huyện!');
+                e.preventDefault();
+                return false;
+            }
+            if (!$('#ward').val()) {
+                alert('Vui lòng chọn Phường/Xã!');
+                e.preventDefault();
+                return false;
+            }
+        });
+    });
+    </script>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
     <script>

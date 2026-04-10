@@ -1,6 +1,5 @@
-<?php
+﻿<?php
 require "../includes/conn.php";
-session_start();
 
 $email = $_POST['email'];
 $email = mysqli_real_escape_string($conn, $email);

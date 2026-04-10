@@ -1,4 +1,11 @@
-<?php
+﻿<?php
+    // Use a dedicated session name for the admin panel
+    // This prevents session conflicts with the user-facing website
+    if (session_status() === PHP_SESSION_NONE) {
+        session_name('plantshop_admin');
+        session_start();
+    }
+
     $server = "127.0.0.1";
     $username = "root";
     $password = "";

@@ -116,6 +116,14 @@ $total = $sum + $shipping;
                                         </label>
                                     </div>
                                 </div>
+                                                                <div class="p-3 border rounded bg-light mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="payment_method" id="payment_cash" value="Tiền mặt" checked onChange="document.getElementById('bank_details').style.display='none'">
+                                        <label class="form-check-label font-weight-bold" for="payment_cash" style="cursor: pointer;">
+                                            Thanh toán trực tuyến
+                                        </label>
+                                    </div>
+                                </div>
                                 <div class="p-3 border rounded bg-light">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="payment_method" id="payment_bank" value="Chuyển khoản" onChange="document.getElementById('bank_details').style.display='block'">

@@ -1,6 +1,5 @@
-<?php
+﻿<?php
 require '../includes/conn.php';
-session_start();
 
 // Kiểm tra quyền admin
 if(!isset($_SESSION['admin_email'])){

@@ -1,6 +1,5 @@
-<?php
+﻿<?php
 require "../includes/conn.php";
-session_start();
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $item_id = $_GET["id"];
     $admin_id = $_SESSION['admin_id'];

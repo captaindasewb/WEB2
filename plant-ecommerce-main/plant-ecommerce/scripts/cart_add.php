@@ -1,6 +1,12 @@
 <?php
 require("../includes/conn.php");
 session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    echo "<script>alert('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!'); window.location.href='../login.php';</script>";
+    exit();
+}
+
 if (isset($_GET['id']) && is_numeric($_GET['id']) && isset($_GET['qty']) && is_numeric($_GET['qty'])) {
     $item_id = $_GET['id'];
     $qty = $_GET['qty'];

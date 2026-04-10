@@ -1,9 +1,8 @@
-<?php require "includes/conn.php" ?>
+﻿<?php require "includes/conn.php" ?>
 <?php require "includes/header.php";
 
 require 'includes/conn.php';
 
-session_start();
 
 if(isset($_SESSION['admin_email'])){
     echo "<script> location.href='index.php'; </script>";

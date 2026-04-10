@@ -135,6 +135,7 @@ $result = $stmt->get_result();
 <script src="js/price_rangs.js"></script>
 <script src="js/custom.js"></script>
 
+
 <!-- JS xử lý tăng/giảm số lượng & xóa sản phẩm -->
 <script>
 $(document).ready(function() {
